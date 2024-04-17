@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "project-and-workflow"
+version = "0.1.0"
+description = ""
+authors = ["Carlos Colin <Carlos_Colin@epam.com>"]
+readme = "README.md"
+packages = [
+    { include = "app" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.0"
+uvicorn = { extras = ["standard"], version = "^0.27.0.post1" }
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.1.1"
+isort = "^5.13.2"
+pre-commit = "^3.6.0"
+pylint = "^3.0.3"
+flake8 = "^7.0.0"
+mypy = "^1.8.0"
+darglint = "^1.8.1"
+flake8-async = "^22.11.14"
+flake8-bandit = "^4.1.1"
+flake8-blind-except = "^0.2.1"
+flake8-broken-line = "^1.0.0"
+flake8-bugbear = "^24.1.17"
+flake8-cognitive-complexity = "^0.1.0"
+flake8-commas = "^2.1.0"
+flake8-comprehensions = "^3.14.0"
+flake8-debugger = "^4.1.2"
+flake8-docstrings = "^1.7.0"
+flake8-eradicate = "^1.5.0"
+flake8-functions = "^0.0.8"
+flake8-isort = "^6.1.1"
+flake8-logging-format = "^0.9.0"
+flake8-polyfill = "^1.0.2"
+flake8-rst-docstrings = "^0.3.0"
+flake8-string-format = "^0.3.0"
+mccabe = "^0.7.0"
+pep8-naming = "^0.13.3"
+pycodestyle = "^2.11.1"
+pydocstyle = "^6.3.0"
+pyflakes = "^3.2.0"
+
+[tool.isort]
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

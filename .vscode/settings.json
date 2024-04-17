@@ -1,0 +1,16 @@
+{
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
+    "mypy-type-checker.args": [
+        "--config-file=${workspaceFolder}/pyproject.toml"
+    ],
+    "pylint.args": [
+        "--rcfile=${workspaceFolder}/.pylintrc.toml"
+    ],
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    }
+}

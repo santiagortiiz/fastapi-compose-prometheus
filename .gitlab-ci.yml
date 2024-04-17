@@ -1,0 +1,86 @@
+default:
+  image: python:3.11-alpine3.19
+
+stages:
+  - build
+  - testing
+  - deploy
+
+prepare-build:
+  stage: build
+  script:
+    - pip install poetry
+    - mkdir -p .venv
+    - poetry config virtualenvs.in-project true
+    - poetry install
+    - ls -al
+  cache:
+    key:
+      files:
+        - pyproject.toml
+        - poetry.lock
+    paths:
+      - .venv/
+      - poetry.lock
+      - pyproject.toml
+
+check-code-formatting:
+  stage: build
+  needs:
+    - prepare-build
+  cache:
+    key:
+      files:
+        - pyproject.toml
+        - poetry.lock
+    paths:
+      - .venv/
+      - poetry.lock
+      - pyproject.toml
+  script:
+    - source ./.venv/bin/activate
+    - isort . --diff --check-only
+    - black . --diff --check
+
+code-static-analysis:
+  stage: build
+  needs:
+    - prepare-build
+  cache:
+    key:
+      files:
+        - pyproject.toml
+        - poetry.lock
+    paths:
+      - .venv/
+      - poetry.lock
+      - pyproject.toml
+  script:
+    - echo "This job performs static analysis"
+
+build:
+  stage: build
+  needs:
+    - prepare-build
+  cache:
+    key:
+      files:
+        - pyproject.toml
+        - poetry.lock
+    paths:
+      - .venv/
+      - poetry.lock
+      - pyproject.toml
+  script:
+    - echo "This job performs"
+
+testing:
+  stage: testing
+  script:
+    - echo "This job performs testing for the project"
+
+deploy-prod:
+  stage: deploy
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+  environment: production

@@ -1,0 +1,23 @@
+
+[flake8]
+format = pylint
+count = true
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist
+max-complexity = 10
+max-line-length = 120
+max-imports = 10
+max-arguments = 10
+max-local-variables = 10
+max-methods = 15
+max-module-expressions = 20
+max-line-complexity = 20
+max-jones-score = 20
+max-awaits = 7
+max-expressions = 20
+max-function-length = 70
+max-parameters-amount = 9
+max-cognitive-complexity = 8

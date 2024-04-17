@@ -1,0 +1,22 @@
+name: backend
+
+services:
+  api:
+    # image: community.opengroup.org:5555/osdu/platform/system/project-and-workflow
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
+    restart: on-failure
+    ports:
+      - "80:80"
+    develop:
+      watch:
+        - action: sync
+          path: ./app/
+          target: /fastapi/app/
+          ignore:
+            - .venv/
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
