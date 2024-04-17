@@ -10,10 +10,10 @@ docker build -t api:test --no-cache .
 winpty docker run --rm -it api
 winpty docker run --rm --name api -it -p 80:80 api
 
-# Push to the community
-docker login community.opengroup.org:5555
-docker build -t community.opengroup.org:5555/osdu/platform/system/project-and-workflow .
-docker push community.opengroup.org:5555/osdu/platform/system/project-and-workflow
+# Push to the image registry
+docker login <registry>
+docker build -t <tag> .
+docker push <registry>
 
 # compose
 docker compose up -d
