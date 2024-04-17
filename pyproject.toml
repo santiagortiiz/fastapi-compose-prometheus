@@ -1,9 +1,9 @@
 [tool.poetry]
-name = "project-and-workflow"
+name = "sample API"
 version = "0.1.0"
 description = ""
-authors = ["Carlos Colin <Carlos_Colin@epam.com>"]
-readme = "README.md"
+authors = ["Santiago Ortiz <santiago_ortiz@epam.com>"]
+readme = "run_commands.md"
 packages = [
     { include = "app" }
 ]
