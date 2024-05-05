@@ -1,0 +1,26 @@
+groups:
+  - name: wellbore_ddms_rules
+    interval: 20s
+    rules:
+    # HTTP request rate (number of requests per time unit)
+    - record: number_of_requests_per_time
+      expr: increase(http_requests_total{group="wellbore_ddms"}[30s])
+    # HTTP response times (average)
+    - record: avg_request_response_time
+      expr: rate(http_request_duration_seconds_sum{group="wellbore_ddms"}[30s]) / rate(http_request_duration_seconds_count{group="wellbore_ddms"}[30s])
+    # HTTP response times (peak)
+    - record: highest_request_response_time
+      expr: histogram_quantile(1, increase(http_request_duration_seconds_bucket{group="wellbore_ddms"}[5m]))
+    # HTTP status codes distribution across different endpoints
+    - record: status_code_distribution
+      expr: http_requests_total
+    # CPU percentaje usage
+    - record: cpu_percentaje_usage_estimation
+      expr: (avg by (instance) (irate(process_cpu_seconds_total{job="wdms"}[1m])) * 100)
+    - record: cpu_percentaje_usage_suggested_by_AI
+      expr: 100 - (avg by (instance) (rate(process_cpu_seconds_total{job="wdms"}[1m])) * 100)
+    # Memory percentaje usage
+    - record: memory_percentaje_usage_suggested_by_AI
+      expr: (avg by (instance) (irate(process_resident_memory_bytes{job="wdms"}[1m])) * 100)
+    - record: virtual_memory_size_in_bytes
+      expr: process_virtual_memory_bytes
