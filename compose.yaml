@@ -1,8 +1,13 @@
 name: backend
 
 services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+
   api:
-    # image: community.opengroup.org:5555/osdu/platform/system/project-and-workflow
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,3 +25,31 @@ services:
           ignore:
             - .venv/
     command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    restart: unless-stopped
+    ports: # expose the service to the host and other containers
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./monitoring/prometheus/metrics.rules.yml:/etc/prometheus/metrics.rules.yml:ro
+      - prometheus_data:/prometheus
+    # volumes:
+    #   - type: bind
+    #     source: ./monitoring/prometheus/prometheus.yml
+    #     target: /etc/prometheus/prometheus.yml
+    #     read_only: true
+    #   - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    # expose: # expose a port only to other services but not to the host machine
+    #   - 9090
+
+volumes:
+  prometheus_data:

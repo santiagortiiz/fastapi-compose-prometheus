@@ -1,5 +1,6 @@
 # Reachable endpoint
 http://localhost/docs
+http://127.0.0.1/docs
 
 # Build the image
 docker build -t api .
