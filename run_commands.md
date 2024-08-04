@@ -27,6 +27,8 @@ docker compose watch
 uvicorn app.main:app --reload
 uvicorn app.main:app --port 80 --reload
 
+# Inspect
+winpty docker exec -it loki sh
 
 # Deploy with Ngrok
 docker run --rm -it -e NGROK_AUTHTOKEN=23h0EkmxfU6nTw1PcfRJopWczdu_2iT6DmA3JoFCgXt1eVsos ngrok/ngrok http 80
