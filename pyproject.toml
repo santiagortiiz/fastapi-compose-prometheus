@@ -13,6 +13,7 @@ python = "^3.11"
 fastapi = "^0.109.0"
 uvicorn = { extras = ["standard"], version = "^0.27.0.post1" }
 prometheus-fastapi-instrumentator = "^7.0.0"
+python-logging-loki = "^0.3.1"
 
 [tool.mypy]
 warn_return_any = true
@@ -48,6 +49,7 @@ pep8-naming = "^0.13.3"
 pycodestyle = "^2.11.1"
 pydocstyle = "^6.3.0"
 pyflakes = "^3.2.0"
+ipykernel = "^6.29.5"
 
 [tool.isort]
 profile = "black"
